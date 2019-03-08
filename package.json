@@ -1,0 +1,15 @@
+{
+  "name": "redux-middleware-dev-pattern",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "vue": "cd ./packages/x-vue && npm run serve",
+    "react": "cd ./packages/x-react && npm run start"
+  },
+  "devDependencies": {
+    "lerna": "^3.13.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
