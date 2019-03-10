@@ -1,36 +1,55 @@
 <template>
-    <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
-    </div>
+    <v-app>
+        <PrimarySearchAppBar @changed="userTyping"></PrimarySearchAppBar>
+        <v-content>
+            <div class="app-body">
+                <ShowsList :shows="shows" @select="tvShowSelected"></ShowsList>
+                <ShowDetailsDialog
+                    :open="isModalOpen" :info="selectedShowInfo"
+                    @close="setModalState(false)"
+                ></ShowDetailsDialog>
+            </div>
+            <!--<HelloWorld/>-->
+        </v-content>
+    </v-app>
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld.vue';
-  import { store } from '@project/x-redux';
-  import { connect } from 'redux-vuex';
-  import Vue from 'vue';
-               console.log(store.getState())
-  connect({
-    Vue,
-    store,
-  });
+  import { mapActions } from 'redux-vuex';
+  import { tvShowSelected, userTyping } from '@project/x-redux/src/feature/search/search.actions';
+  import { setModalState } from '@project/x-redux/src/feature/showInfo/showInfo.actions';
+  import ShowsList from './components/ShowsList';
+  import PrimarySearchAppBar from './components/PrimarySearchAppBar';
+  import ShowDetailsDialog from './components/ShowDetailsDialog';
 
   export default {
-    name: 'app',
+    name: 'App',
     components: {
-      HelloWorld,
+      PrimarySearchAppBar,
+      ShowsList,
+      ShowDetailsDialog,
+    },
+    data() {
+      return {
+        ...this.mapState({
+          shows: state => state.search.shows,
+          isModalOpen: state => state.showInfo.isOpen,
+          selectedShowInfo: state => state.showInfo.info,
+        }),
+      };
+    },
+    methods: {
+      ...mapActions({
+        userTyping: function({dispatch}, query) {
+          dispatch(userTyping({query}));
+        },
+        tvShowSelected: function({dispatch}, id) {
+          dispatch(tvShowSelected({id}));
+        },
+        setModalState: function({dispatch}, state) {
+          dispatch(setModalState({state}));
+        },
+      }),
     },
   };
 </script>
-
-<style>
-    #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
-    }
-</style>
