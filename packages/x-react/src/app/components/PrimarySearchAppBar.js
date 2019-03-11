@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, InputBase } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import logo from '../logo.svg';
 
 const styles = theme => ({
   root: {
@@ -22,7 +23,7 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
+    marginLeft: 'auto !important',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing.unit * 3,
@@ -77,6 +78,7 @@ class PrimarySearchAppBar extends React.Component {
                 onChange={(e) => onUserTyping({ query: e.currentTarget.value })}
               />
             </div>
+            <img src={logo} height={40} alt='React'/>
           </Toolbar>
         </AppBar>
       </div>

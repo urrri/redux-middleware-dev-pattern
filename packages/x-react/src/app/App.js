@@ -2,35 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
-import { tvShowSelected, userTyping } from '@project/x-redux/src/feature/search/search.actions';
+import { searchActions, showInfoActions } from '@project/x-redux';
 import { ShowsList } from './components/ShowsList';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
 import ShowDetailsDialog from './components/ShowDetailsDialog';
-import { setModalState } from '@project/x-redux/src/feature/showInfo/showInfo.actions';
+
+const {tvShowSelected, userTyping} = searchActions;
+const {setModalState} = showInfoActions;
 
 class App extends Component {
 
   render() {
-    const { shows, tvShowSelected, userTyping, isModalOpen, selectedShowInfo, setModalState } = this.props;
+    const {shows, tvShowSelected, userTyping, isModalOpen, selectedShowInfo, setModalState} = this.props;
     return (
-      <div className="App">
-        <PrimarySearchAppBar onUserTyping={userTyping} />
-        <div className={'app-body'}>
-          <ShowsList shows={shows} onSelectShow={tvShowSelected} />
-          <ShowDetailsDialog
-            isOpen={isModalOpen} showInfo={selectedShowInfo}
-            handleDialogClose={() => setModalState({ state: false })}
-          />
+        <div className="App">
+          <PrimarySearchAppBar onUserTyping={userTyping}/>
+          <div className={'app-body'}>
+            <ShowsList shows={shows} onSelectShow={tvShowSelected}/>
+            <ShowDetailsDialog
+                isOpen={isModalOpen} showInfo={selectedShowInfo}
+                handleDialogClose={() => setModalState({state: false})}
+            />
+          </div>
         </div>
-      </div>
     );
   }
 }
 
-const mapStateToProps = ({ search, showInfo }) => {
-  const { shows } = search;
-  const { isOpen: isModalOpen, info: selectedShowInfo } = showInfo;
-  return { shows, isModalOpen, selectedShowInfo };
+const mapStateToProps = ({search, showInfo}) => {
+  const {shows} = search;
+  const {isOpen: isModalOpen, info: selectedShowInfo} = showInfo;
+  return {shows, isModalOpen, selectedShowInfo};
 };
 
 export default connect(mapStateToProps, {

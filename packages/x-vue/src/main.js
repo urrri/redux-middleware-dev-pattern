@@ -4,7 +4,6 @@ import App from './App.vue';
 import { store } from '@project/x-redux';
 import { connect } from 'redux-vuex';
 
-console.log(store.getState());
 connect({
   Vue,
   store,

@@ -5,9 +5,7 @@ import './app/index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
-import configureStore from '@project/x-redux/src/store';
-
-const store = configureStore();
+import { store } from '@project/x-redux';
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

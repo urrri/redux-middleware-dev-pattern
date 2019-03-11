@@ -16,8 +16,7 @@
 
 <script>
   import { mapActions } from 'redux-vuex';
-  import { tvShowSelected, userTyping } from '@project/x-redux/src/feature/search/search.actions';
-  import { setModalState } from '@project/x-redux/src/feature/showInfo/showInfo.actions';
+  import { searchActions, showInfoActions } from '@project/x-redux';
   import ShowsList from './components/ShowsList';
   import PrimarySearchAppBar from './components/PrimarySearchAppBar';
   import ShowDetailsDialog from './components/ShowDetailsDialog';
@@ -41,13 +40,13 @@
     methods: {
       ...mapActions({
         userTyping: function({dispatch}, query) {
-          dispatch(userTyping({query}));
+          dispatch(searchActions.userTyping({query}));
         },
         tvShowSelected: function({dispatch}, id) {
-          dispatch(tvShowSelected({id}));
+          dispatch(searchActions.tvShowSelected({id}));
         },
         setModalState: function({dispatch}, state) {
-          dispatch(setModalState({state}));
+          dispatch(showInfoActions.setModalState({state}));
         },
       }),
     },
